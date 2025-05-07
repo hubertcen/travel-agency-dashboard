@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const create-trip = () => {
-  return (
-    <div>create-trip</div>
-  )
-}
+const CreateTrip = () => {
+  return <div>s</div>;
+};
 
-export default create-trip
+export default CreateTrip;
