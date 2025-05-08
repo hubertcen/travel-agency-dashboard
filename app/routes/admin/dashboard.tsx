@@ -1,96 +1,96 @@
 import { Header, StatsCard, TripCard } from "../../components";
 import { getAllUsers, getUser } from "../../appwrite/auth";
 import type { Route } from "./+types/dashboard";
-// import {
-//   getTripsByTravelStyle,
-//   getUserGrowthPerDay,
-//   getUsersAndTripsStats,
-// } from "~/appwrite/dashboard";
-// import { getAllTrips } from "~/appwrite/trips";
-// import { parseTripData } from "~/lib/utils";
-// import {
-//   Category,
-//   ChartComponent,
-//   ColumnSeries,
-//   DataLabel,
-//   SeriesCollectionDirective,
-//   SeriesDirective,
-//   SplineAreaSeries,
-//   Tooltip,
-// } from "@syncfusion/ej2-react-charts";
-// import {
-//   ColumnDirective,
-//   ColumnsDirective,
-//   GridComponent,
-//   Inject,
-// } from "@syncfusion/ej2-react-grids";
-// import { tripXAxis, tripyAxis, userXAxis, useryAxis } from "~/constants";
+import {
+  getTripsByTravelStyle,
+  getUserGrowthPerDay,
+  getUsersAndTripsStats,
+} from "~/appwrite/dashboard";
+import { getAllTrips } from "~/appwrite/trips";
+import { parseTripData } from "~/lib/utils";
+import {
+  Category,
+  ChartComponent,
+  ColumnSeries,
+  DataLabel,
+  SeriesCollectionDirective,
+  SeriesDirective,
+  SplineAreaSeries,
+  Tooltip,
+} from "@syncfusion/ej2-react-charts";
+import {
+  ColumnDirective,
+  ColumnsDirective,
+  GridComponent,
+  Inject,
+} from "@syncfusion/ej2-react-grids";
+import { tripXAxis, tripyAxis, userXAxis, useryAxis } from "~/constants";
 import { redirect } from "react-router";
 
-// export const clientLoader = async () => {
-//   const [
-//     user,
-//     dashboardStats,
-//     trips,
-//     userGrowth,
-//     tripsByTravelStyle,
-//     allUsers,
-//   ] = await Promise.all([
-//     await getUser(),
-//     await getUsersAndTripsStats(),
-//     await getAllTrips(4, 0),
-//     await getUserGrowthPerDay(),
-//     await getTripsByTravelStyle(),
-//     await getAllUsers(4, 0),
-//   ]);
+export const clientLoader = async () => {
+  const [
+    user,
+    dashboardStats,
+    trips,
+    userGrowth,
+    tripsByTravelStyle,
+    allUsers,
+  ] = await Promise.all([
+    await getUser(),
+    await getUsersAndTripsStats(),
+    await getAllTrips(4, 0),
+    await getUserGrowthPerDay(),
+    await getTripsByTravelStyle(),
+    await getAllUsers(4, 0),
+  ]);
 
-//   const allTrips = trips.allTrips.map(({ $id, tripDetails, imageUrls }) => ({
-//     id: $id,
-//     ...parseTripData(tripDetails),
-//     imageUrls: imageUrls ?? [],
-//   }));
+  const allTrips = trips.allTrips.map(({ $id, tripDetails, imageUrls }) => ({
+    id: $id,
+    ...parseTripData(tripDetails),
+    imageUrls: imageUrls ?? [],
+  }));
 
-//   const mappedUsers: UsersItineraryCount[] = allUsers.users.map((user) => ({
-//     imageUrl: user.imageUrl,
-//     name: user.name,
-//     count: user.itineraryCount ?? Math.floor(Math.random() * 10),
-//   }));
+  const mappedUsers: UsersItineraryCount[] = allUsers.users.map((user) => ({
+    imageUrl: user.imageUrl,
+    name: user.name,
+    count: user.itineraryCount ?? Math.floor(Math.random() * 10),
+  }));
 
-//   return {
-//     user,
-//     dashboardStats,
-//     allTrips,
-//     userGrowth,
-//     tripsByTravelStyle,
-//     allUsers: mappedUsers,
-//   };
-// };
+  return {
+    user,
+    dashboardStats,
+    allTrips,
+    userGrowth,
+    tripsByTravelStyle,
+    allUsers: mappedUsers,
+  };
+};
 
 const Dashboard = ({ loaderData }: Route.ComponentProps) => {
   const user = loaderData.user as User | null;
   const { dashboardStats, allTrips, userGrowth, tripsByTravelStyle, allUsers } =
     loaderData;
 
-  // const trips = allTrips.map((trip) => ({
-  //   imageUrl: trip.imageUrls[0],
-  //   name: trip.name,
-  //   interest: trip.interests,
-  // }));
+  const trips = allTrips.map((trip) => ({
+    imageUrl: trip.imageUrls[0],
+    name: trip.name,
+    interest: trip.interests,
+  }));
 
-  // const usersAndTrips = [
-  //   {
-  //     title: "Latest user signups",
-  //     dataSource: allUsers,
-  //     field: "count",
-  //     headerText: "Trips created",
-  //   },
-  //   {
-  //     title: "Trips based on interests",
-  //     dataSource: trips,
-  //     field: "interest",
-  //     headerText: "Interests",
-  //   },
-  // ];
+  const usersAndTrips = [
+    {
+      title: "Latest user signups",
+      dataSource: allUsers,
+      field: "count",
+      headerText: "Trips created",
+    },
+    {
+      title: "Trips based on interests",
+      dataSource: trips,
+      field: "interest",
+      headerText: "Interests",
+    },
+  ];
 
   return (
     <main className="dashboard wrapper">
@@ -98,7 +98,6 @@ const Dashboard = ({ loaderData }: Route.ComponentProps) => {
         title={`Welcome ${user?.name ?? "Guest"} 👋`}
         description="Track activity, trends and popular destinations in real time"
       />
-
       <section className="flex flex-col gap-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           <StatsCard
@@ -121,7 +120,7 @@ const Dashboard = ({ loaderData }: Route.ComponentProps) => {
           />
         </div>
       </section>
-      {/* <section className="container">
+      <section className="container">
         <h1 className="text-xl font-semibold text-dark-100">Created Trips</h1>
 
         <div className="trip-grid">
@@ -137,9 +136,8 @@ const Dashboard = ({ loaderData }: Route.ComponentProps) => {
             />
           ))}
         </div>
-      </section> */}
-
-      {/* <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      </section>
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <ChartComponent
           id="chart-1"
           primaryXAxis={userXAxis}
@@ -209,9 +207,9 @@ const Dashboard = ({ loaderData }: Route.ComponentProps) => {
             />
           </SeriesCollectionDirective>
         </ChartComponent>
-      </section> */}
-
-      {/* <section className="user-trip wrapper">
+      </section>{" "}
+      */
+      <section className="user-trip wrapper">
         {usersAndTrips.map(({ title, dataSource, field, headerText }, i) => (
           <div key={i} className="flex flex-col gap-5">
             <h3 className="p-20-semibold text-dark-100">{title}</h3>
@@ -246,7 +244,7 @@ const Dashboard = ({ loaderData }: Route.ComponentProps) => {
             </GridComponent>
           </div>
         ))}
-      </section> */}
+      </section>
     </main>
   );
 };
